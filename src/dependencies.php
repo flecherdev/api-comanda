@@ -19,7 +19,8 @@ return function (App $app) {
         $logger->pushHandler(new \Monolog\Handler\StreamHandler($settings['path'], $settings['level']));
         return $logger;
     };
- // monolog
+    
+    // monolog
     $container['IPlogger'] = function ($c) {
         $settings = $c->get('settings')['IPlogger'];
         $logger = new \Monolog\Logger($settings['name']);
@@ -30,7 +31,6 @@ return function (App $app) {
     $container['db'] = function ($container) {
         $capsule = new \Illuminate\Database\Capsule\Manager;
         $capsule->addConnection($container['settings']['db']);
-
        // $capsule->setAsGlobal();
         $capsule->bootEloquent();
 

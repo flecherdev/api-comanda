@@ -6,8 +6,6 @@ use Slim\Http\Response;
 use App\Models\cd;
 use App\Models\cdApi;
 
-
-
 return function (App $app) {
     $container = $app->getContainer();
 

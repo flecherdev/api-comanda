@@ -14,14 +14,10 @@ return function (App $app) {
     $container = $app->getContainer();
 
      $app->group('/cdORM', function () {   
-        $this->get('/', function ($request, $response, $args) {
-          //return cd::all()->toJson();
-          $todosLosCds=cd::all();
-          $newResponse = $response->withJson($todosLosCds, 200);  
-          return $newResponse;
-        });
+        $this->get('/', cdControler::TraerTodos());
+        
         $this->get('/{id}', function ($request, $response, $args) {
-          //return cd::all()->toJson();
+          // return cd::all()->toJson();
           // $todosLosCds=cd::TraerUno();
           $traerUno = cd::find($args['id']);
           $newResponse = $response->withJson($traerUno, 200);  
