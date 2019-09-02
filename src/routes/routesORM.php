@@ -13,16 +13,28 @@ include_once __DIR__ . '/../../src/app/modelORM/cdControler.php';
 return function (App $app) {
     $container = $app->getContainer();
 
-     $app->group('/cdORM', function () {   
-        $this->get('/', cdControler::TraerTodos());
-        
-        $this->get('/{id}', function ($request, $response, $args) {
-          // return cd::all()->toJson();
-          // $todosLosCds=cd::TraerUno();
-          $traerUno = cd::find($args['id']);
-          $newResponse = $response->withJson($traerUno, 200);  
-          return $newResponse;
-        });
+     $app->group('/cdORM', function () { 
+
+      // $this->get('/', cdControler::class . '::TraerTodos()');
+         
+      $this->get('/', function ($request, $response, $args) {
+        $todosLosCds=cd::all();
+        $newResponse = $response->withJson($todosLosCds, 200);  
+        return $newResponse;
+      });
+
+      $this->get('/{id}', function ($request, $response, $args) {
+        $traerUno = cd::find($args['id']);
+        $newResponse = $response->withJson($traerUno, 200);  
+        return $newResponse;
+      });
+
+      $this->post('/add', function ($request, $response, $args) {
+        $dato = $request->getParseBody();
+        $cd = cd::create(['cd' => $dato['cd']]);
+        $newResponse = $response->withJson($cd , 200);  
+      });
+      
     });
 
 

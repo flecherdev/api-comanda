@@ -18,14 +18,14 @@ class cdControler implements IApiControler {
     
   public function TraerTodos($request, $response, $args) {
     //return cd::all()->toJson();
-    $todosLosCds=cd::all();
+    $todosLosCds=empleado::all();
     $newResponse = $response->withJson($todosLosCds, 200);  
     return $newResponse;
   }
 
   public function TraerUno($request, $response, $args) {
     //complete el codigo
-    $traerUno = cd::find($args['id']);
+    $traerUno = empleado::find($args['id']);
     $newResponse = $response->withJson($traerUno, 200);  
     return $newResponse;
   }

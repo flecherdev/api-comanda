@@ -10,8 +10,8 @@ return function (App $app) {
     $container = $app->getContainer();
 
     // Rutas PDO
-    $routes = require __DIR__ . '/../src/routes/routesPDO.php';
-    $routes($app);
+    // $routes = require __DIR__ . '/../src/routes/routesPDO.php';
+    // $routes($app);
     
 
     // Rutas ORM

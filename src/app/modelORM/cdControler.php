@@ -17,7 +17,6 @@ class cdControler implements IApiControler {
   }
     
   public function TraerTodos($request, $response, $args) {
-    //return cd::all()->toJson();
     $todosLosCds=cd::all();
     $newResponse = $response->withJson($todosLosCds, 200);  
     return $newResponse;
@@ -31,14 +30,15 @@ class cdControler implements IApiControler {
   }
    
   public function CargarUno($request, $response, $args) {
-    //complete el codigo
-    $newResponse = $response->withJson("sin completar", 200);  
-    return $response;
+    $dato = $request->getParseBody();
+    $cd = cd::create(['cd' => $dato['cd']]);
+    $newResponse = $response->withJson($cd , 200);  
+    return $newResponse;
   }
 
   public function BorrarUno($request, $response, $args) {
     //complete el codigo
-    $newResponse = $response->withJson("sin completar", 200);  
+    $newResponse = $response->withJson("algo" , 200);  
     return $newResponse;
   }
      

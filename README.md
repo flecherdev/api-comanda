@@ -13,7 +13,7 @@ Empleados:
 ## :floppy_disk: Tecnologia
  - :rocket: Slim Framework
  - :muscle: PHP 7.1.19
- - kissing_cat: Composer version 1.6.4
+ - :kissing_cat: Composer version 1.6.4
 
 ## :green_book: Lista de Tareas 
 
