@@ -23,14 +23,13 @@ class cdControler implements IApiControler {
   }
 
   public function TraerUno($request, $response, $args) {
-    //complete el codigo
     $traerUno = cd::find($args['id']);
     $newResponse = $response->withJson($traerUno, 200);  
     return $newResponse;
   }
    
   public function CargarUno($request, $response, $args) {
-    $dato = $request->getParseBody();
+    $dato = $request->getParsedBody();
     $cd = cd::create(['cd' => $dato['cd']]);
     $newResponse = $response->withJson($cd , 200);  
     return $newResponse;
