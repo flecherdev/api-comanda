@@ -43,7 +43,8 @@ class cdControler implements IApiControler {
   public function ModificarUno($request, $response, $args) {
     $dato = json_decode(json_encode($request->getParsedBody()));
 
-    $miCd = App\Flight::find($dato->id);
+    $miCd = cd::find($args['id']);
+
     $miCd->titel = $dato->titel;
     $miCd->interpret = $dato->interpret;
     $miCd->jahr = $dato->jahr;
