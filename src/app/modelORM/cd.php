@@ -6,5 +6,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 
 class cd extends \Illuminate\Database\Eloquent\Model {  
-  
+    // const CREATED_AT = 'creation_date';
+    // const UPDATED_AT = 'last_update';
+    public $timestamps = false;
 }

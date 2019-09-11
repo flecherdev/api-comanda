@@ -1,20 +1,12 @@
 <?php
 namespace App\Models\ORM;
-use App\Models\ORM\cd;
+use App\Models\ORM\empleado;
 use App\Models\IApiControler;
 
-include_once __DIR__ . '/cd.php';
+include_once __DIR__ . '/empleado.php';
 include_once __DIR__ . '../../modelAPI/IApiControler.php';
 
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
-
-class cdControler implements IApiControler {
-
- 	public function Beinvenida($request, $response, $args) {
-    $response->getBody()->write("GET => Bienvenido!!! ,a UTN FRA SlimFramework");
-    return $response;
-  }
+class empleadoControler implements IApiControler {
     
   public function TraerTodos($request, $response, $args) {
     //return cd::all()->toJson();

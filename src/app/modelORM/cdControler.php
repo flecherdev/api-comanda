@@ -6,44 +6,51 @@ use App\Models\IApiControler;
 include_once __DIR__ . '/cd.php';
 include_once __DIR__ . '../../modelAPI/IApiControler.php';
 
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
-
-class cdControler implements IApiControler {
-
- 	public function Beinvenida($request, $response, $args) {
-    $response->getBody()->write("GET => Bienvenido!!! ,a UTN FRA SlimFramework");
-    return $response;
-  }
+class cdControler implements IApiControler { 
     
-  public function TraerTodos($request, $response, $args) {
+  public function TraerTodos($request, $response, $args) { //OK
     $todosLosCds=cd::all();
     $newResponse = $response->withJson($todosLosCds, 200);  
     return $newResponse;
   }
 
-  public function TraerUno($request, $response, $args) {
+  public function TraerUno($request, $response, $args) { // OK
     $traerUno = cd::find($args['id']);
     $newResponse = $response->withJson($traerUno, 200);  
     return $newResponse;
   }
    
-  public function CargarUno($request, $response, $args) {
-    $dato = $request->getParsedBody();
-    $cd = cd::create(['cd' => $dato['cd']]);
-    $newResponse = $response->withJson($cd , 200);  
+  public function CargarUno($request, $response, $args) { // ok
+    $dato = json_decode(json_encode($request->getParsedBody()));
+    
+    $miCd = new cd;
+    $miCd->titel = $dato->titel;
+    $miCd->interpret = $dato->interpret;
+    $miCd->jahr = $dato->jahr;
+
+    $miCd->save();
+
+    $newResponse = $response->withJson($miCd , 200);  
     return $newResponse;
   }
 
-  public function BorrarUno($request, $response, $args) {
-    //complete el codigo
-    $newResponse = $response->withJson("algo" , 200);  
+  public function BorrarUno($request, $response, $args) { //ok
+    $cd = cd::destroy($args['id']);
+    $newResponse = $response->withJson($cd , 200);  
     return $newResponse;
   }
      
   public function ModificarUno($request, $response, $args) {
-    //complete el codigo
-    $newResponse = $response->withJson("sin completar", 200);  
+    $dato = json_decode(json_encode($request->getParsedBody()));
+
+    $miCd = App\Flight::find($dato->id);
+    $miCd->titel = $dato->titel;
+    $miCd->interpret = $dato->interpret;
+    $miCd->jahr = $dato->jahr;
+
+    $miCd->save();
+    
+    $newResponse = $response->withJson($miCd, 200);  
     return 	$newResponse;
   }  
 }
