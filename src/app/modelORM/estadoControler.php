@@ -6,10 +6,10 @@ use App\Models\IApiControler;
 include_once __DIR__ . '/estado.php';
 include_once __DIR__ . '../../modelAPI/IApiControler.php';
 
-class estadoControler implements IApiControler {
+class EstadoControler implements IApiControler {
     
   public function TraerTodos($request, $response, $args) { 
-    $todosLosEmpleados=Estado::all();
+    $todosLosEmpleados = Estado::all();
     $newResponse = $response->withJson($todosLosEmpleados, 200);  
     return $newResponse;
   }
