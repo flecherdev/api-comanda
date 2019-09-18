@@ -15,13 +15,13 @@ class TipoControler implements IApiControler {
     }
 
     public function TraerUno($request, $response, $args) {
-        $traerUno = Tpo::find($args['id']);
-        $newResponse = $response->with($traerUno, 200);
+        $traerUno = Tipo::find($args['id']);
+        $newResponse = $response->withJson($traerUno, 200);
         return $newResponse;
     }
 
     public function CargarUno($request, $response, $args) {
-        $dato = json_decode(json_encode($request->getParseBody()));
+        $dato = json_decode(json_encode($request->getParsedBody()));
 
         $miTipo = new Tipo;
         $miTipo->descripcion_tipo = $dato->descripcion_tipo;
@@ -39,7 +39,7 @@ class TipoControler implements IApiControler {
     }
 
     public function ModificarUno($request, $response, $args) {
-        $dato = json_decode(json_encode($response->getParseBody()));
+        $dato = json_decode(json_encode($request->getParsedBody()));
 
         $miTipo = Tipo::find($args['id']);
         $miTipo->descripcion_tipo = $dato->descripcion_tipo;
