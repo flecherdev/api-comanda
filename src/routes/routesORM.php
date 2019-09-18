@@ -1,20 +1,23 @@
 <?php
 
 use Slim\App;
-use Slim\Http\Request;
-use Slim\Http\Response;
-use App\Models\ORM\cd;
-use App\Models\ORM\empleado;
-use App\Models\ORM\Estado;
+// use Slim\Http\Request;
+// use Slim\Http\Response;
+// use App\Models\ORM\cd;
+// use App\Models\ORM\empleado;
+// use App\Models\ORM\Estado;
 
 use App\Models\ORM\cdControler;
 use App\Models\ORM\empleadoControler;
 use App\Models\ORM\EstadoControler;
+use App\Models\ORM\Tipo;
+use App\Models\ORM\TipoControler;
 
 include_once __DIR__ . '/../../src/app/modelORM/cd.php';
 include_once __DIR__ . '/../../src/app/modelORM/cdControler.php';
 include_once __DIR__ . '/../../src/app/modelORM/empleadoControler.php';
 include_once __DIR__ . '/../../src/app/modelORM/estadoControler.php';
+include_once __DIR__ . '/../../src/app/modelORM/tipoControler.php';
 
 return function (App $app) {
     $container = $app->getContainer();
@@ -46,4 +49,12 @@ return function (App $app) {
       $this->put('/estado/[{id}]', EstadoControler::class . ':ModificarUno');   
     });
 
+    // Tipo
+    $app->group('/tipo-orm', function () { 
+      $this->get('/', TipoControler::class . ':TraerTodos');
+      $this->get('/tipo/[{id}]', TipoControler::class . ':TraerUno'); 
+      $this->post('/tipo/add', TipoControler::class . ':CargarUno'); 
+      $this->delete('/tipo/delete/[{id}]', TipoControler::class . ':BorrarUno');  
+      $this->put('/tipo/[{id}]', TipoControler::class . ':ModificarUno');   
+    });
 };
