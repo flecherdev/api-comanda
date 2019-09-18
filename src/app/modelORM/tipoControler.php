@@ -24,19 +24,29 @@ class TipoControler implements IApiControler {
         $dato = json_decode(json_encode($request->getParseBody()));
 
         $miTipo = new Tipo;
-        $miTipo->descripcion_estado = $dato->descripcion_tipo;
+        $miTipo->descripcion_tipo = $dato->descripcion_tipo;
 
         $miTipo->save();
-        
+
         $newResponse = $response->withJson($miTipo, 200);
         return $newResponse;
     }
 
     public function BorrarUno($request, $response, $args) {
-        
+        $tipo = Tipo::destroy($args['id']);
+        $newResponse = $response->withJson($tipo, 200);
+        return $newResponse;
     }
 
     public function ModificarUno($request, $response, $args) {
-        
+        $dato = json_decode(json_encode($response->getParseBody()));
+
+        $miTipo = Tipo::find($args['id']);
+        $miTipo->descripcion_tipo = $dato->descripcion_tipo;
+
+        $miTipo->save();
+
+        $newResponse = $response->withJson($miTipo, 200);
+        return $newResponse;
     }
 }
