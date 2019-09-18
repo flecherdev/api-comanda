@@ -5,13 +5,16 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 use App\Models\ORM\cd;
 use App\Models\ORM\empleado;
+use App\Models\ORM\Estado;
 
 use App\Models\ORM\cdControler;
 use App\Models\ORM\empleadoControler;
+use App\Models\ORM\EstadoControler;
 
 include_once __DIR__ . '/../../src/app/modelORM/cd.php';
 include_once __DIR__ . '/../../src/app/modelORM/cdControler.php';
 include_once __DIR__ . '/../../src/app/modelORM/empleadoControler.php';
+include_once __DIR__ . '/../../src/app/modelORM/estadoControler.php';
 
 return function (App $app) {
     $container = $app->getContainer();
@@ -32,6 +35,15 @@ return function (App $app) {
       $this->post('/empleado/add', empleadoControler::class . ':CargarUno'); 
       $this->delete('/empleado/delete/[{id}]', empleadoControler::class . ':BorrarUno');  
       $this->put('/empleado/[{id}]', empleadoControler::class . ':ModificarUno');   
+    });
+
+    // Estado
+    $app->group('/estado-orm', function () { 
+      $this->get('/', EstadoControler::class . ':TraerTodos');
+      $this->get('/estado/[{id}]', EstadoControler::class . ':TraerUno'); 
+      $this->post('/estado/add', EstadoControler::class . ':CargarUno'); 
+      $this->delete('/estado/delete/[{id}]', EstadoControler::class . ':BorrarUno');  
+      $this->put('/estado/[{id}]', EstadoControler::class . ':ModificarUno');   
     });
 
 };
