@@ -27,7 +27,7 @@ return function (App $app) {
 
     // Empleado
     $app->group('/empleado-orm', function () { 
-      $this->get('/', empleadoControler::class . ':TraerTodos'); //ok
+      $this->get('/', empleadoControler::class . ':TraerTodos');
       $this->get('/empleado/[{id}]', empleadoControler::class . ':TraerUno'); 
       $this->post('/empleado/add', empleadoControler::class . ':CargarUno'); 
       $this->delete('/empleado/delete/[{id}]', empleadoControler::class . ':BorrarUno');  
