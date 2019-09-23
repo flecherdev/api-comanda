@@ -6,11 +6,13 @@ use App\Models\ORM\empleadoControler;
 use App\Models\ORM\EstadoControler;
 use App\Models\ORM\TipoControler;
 use App\Models\ORM\MesaControler;
+use App\Models\ORM\MenuControler;
 
 include_once __DIR__ . '/../../src/app/modelORM/empleadoControler.php';
 include_once __DIR__ . '/../../src/app/modelORM/estadoControler.php';
 include_once __DIR__ . '/../../src/app/modelORM/tipoControler.php';
 include_once __DIR__ . '/../../src/app/modelORM/mesaControler.php';
+include_once __DIR__ . '/../../src/app/modelORM/menuControler.php';
 
 return function (App $app) {
     $container = $app->getContainer();
@@ -49,5 +51,14 @@ return function (App $app) {
       $this->post('/mesa/add', MesaControler::class . ':CargarUno'); 
       $this->delete('/mesa/delete/[{id}]', MesaControler::class . ':BorrarUno');  
       $this->put('/mesa/[{id}]', MesaControler::class . ':ModificarUno');   
+    });
+
+    // Menu
+    $app->group('/menu-orm', function () { 
+      $this->get('/', MenuControler::class . ':TraerTodos');
+      $this->get('/menu/[{id}]', MenuControler::class . ':TraerUno'); 
+      $this->post('/menu/add', MenuControler::class . ':CargarUno'); 
+      $this->delete('/menu/delete/[{id}]', MenuControler::class . ':BorrarUno');  
+      $this->put('/menu/[{id}]', MenuControler::class . ':ModificarUno');   
     });
 };
