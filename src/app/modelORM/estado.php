@@ -7,5 +7,4 @@ class Estado extends \Illuminate\Database\Eloquent\Model {
     protected $table = 'estados';
     // Primary Key
     protected $primaryKey = 'id_estado';
-
 }

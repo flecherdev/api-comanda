@@ -5,10 +5,12 @@ use Slim\App;
 use App\Models\ORM\empleadoControler;
 use App\Models\ORM\EstadoControler;
 use App\Models\ORM\TipoControler;
+use App\Models\ORM\MesaControler;
 
 include_once __DIR__ . '/../../src/app/modelORM/empleadoControler.php';
 include_once __DIR__ . '/../../src/app/modelORM/estadoControler.php';
 include_once __DIR__ . '/../../src/app/modelORM/tipoControler.php';
+include_once __DIR__ . '/../../src/app/modelORM/mesaControler.php';
 
 return function (App $app) {
     $container = $app->getContainer();
@@ -38,5 +40,14 @@ return function (App $app) {
       $this->post('/tipo/add', TipoControler::class . ':CargarUno'); 
       $this->delete('/tipo/delete/[{id}]', TipoControler::class . ':BorrarUno');  
       $this->put('/tipo/[{id}]', TipoControler::class . ':ModificarUno');   
+    });
+
+    // Mesa
+    $app->group('/mesa-orm', function () { 
+      $this->get('/', TipoControler::class . ':TraerTodos');
+      $this->get('/mesa/[{id}]', TipoControler::class . ':TraerUno'); 
+      $this->post('/mesa/add', TipoControler::class . ':CargarUno'); 
+      $this->delete('/mesa/delete/[{id}]', TipoControler::class . ':BorrarUno');  
+      $this->put('/mesa/[{id}]', TipoControler::class . ':ModificarUno');   
     });
 };
