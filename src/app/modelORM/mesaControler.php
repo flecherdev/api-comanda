@@ -24,7 +24,7 @@ class MesaControler implements IApiControler {
         $dato = json_decode(json_encode($request->getParsedBody()));
 
         $miMesa = new Mesa;
-        $miMesa->descripcion_mesa = $dato->descripcion_mesa;
+        $miMesa->descripcion_mesa= $dato->descripcion_mesa;
         $miMesa->foto = $dato->foto;
 
         $miMesa->save();
