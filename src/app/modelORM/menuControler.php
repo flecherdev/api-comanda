@@ -24,7 +24,7 @@ class MenuControler implements IApiControler {
         $dato = json_decode(json_encode($request->getParsedBody()));
 
         $miMenu = new Menu;
-        $miMenu->nombre_menu = $dato->dnombre_menu;
+        $miMenu->nombre_menu = $dato->nombre_menu;
         $miMenu->precio = $dato->precio;
         $miMenu->id_tipos_sector = $dato->id_tipos_sector ;
         $miMenu->descripcion_menu = $dato->descripcion_menu;
@@ -46,7 +46,7 @@ class MenuControler implements IApiControler {
         $dato = json_decode(json_encode($request->getParsedBody()));
 
         $miMenu = Menu::find($args['id']);
-        $$miMenu->nombre_menu = $dato->dnombre_menu;
+        $miMenu->nombre_menu = $dato->nombre_menu;
         $miMenu->precio = $dato->precio;
         $miMenu->id_tipos_sector = $dato->id_tipos_sector ;
         $miMenu->descripcion_menu = $dato->descripcion_menu;
