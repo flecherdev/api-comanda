@@ -44,10 +44,10 @@ return function (App $app) {
 
     // Mesa
     $app->group('/mesa-orm', function () { 
-      $this->get('/', TipoControler::class . ':TraerTodos');
-      $this->get('/mesa/[{id}]', TipoControler::class . ':TraerUno'); 
-      $this->post('/mesa/add', TipoControler::class . ':CargarUno'); 
-      $this->delete('/mesa/delete/[{id}]', TipoControler::class . ':BorrarUno');  
-      $this->put('/mesa/[{id}]', TipoControler::class . ':ModificarUno');   
+      $this->get('/', MesaControler::class . ':TraerTodos');
+      $this->get('/mesa/[{id}]', MesaControler::class . ':TraerUno'); 
+      $this->post('/mesa/add', MesaControler::class . ':CargarUno'); 
+      $this->delete('/mesa/delete/[{id}]', MesaControler::class . ':BorrarUno');  
+      $this->put('/mesa/[{id}]', MesaControler::class . ':ModificarUno');   
     });
 };
