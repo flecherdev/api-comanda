@@ -1,0 +1,7 @@
+Dependencias instaladas con composer
+
+// Para reportes con excel
+composer require phpoffice/phpspreadsheet
+
+// Para reportes en pdf
+composer require dompdf/dompdfß

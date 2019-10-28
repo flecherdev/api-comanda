@@ -3,7 +3,7 @@ namespace App\Models\ORM;
 use App\Models\ORM\Menu;
 use App\Models\IApiControler;
 
-include_once __DIR__ . '/menu.php';
+include_once __DIR__ . '../../models/menu.php';
 include_once __DIR__ . '../../modelAPI/IApiControler.php';
 
 class MenuControler implements IApiControler {

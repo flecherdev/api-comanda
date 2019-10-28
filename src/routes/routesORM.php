@@ -8,15 +8,16 @@ use App\Models\ORM\TipoControler;
 use App\Models\ORM\MesaControler;
 use App\Models\ORM\MenuControler;
 
-include_once __DIR__ . '/../../src/app/modelORM/empleadoControler.php';
-include_once __DIR__ . '/../../src/app/modelORM/estadoControler.php';
-include_once __DIR__ . '/../../src/app/modelORM/tipoControler.php';
-include_once __DIR__ . '/../../src/app/modelORM/mesaControler.php';
-include_once __DIR__ . '/../../src/app/modelORM/menuControler.php';
+include_once __DIR__ . '/../../src/app/controlers/empleadoControler.php';
+include_once __DIR__ . '/../../src/app/controlers/estadoControler.php';
+include_once __DIR__ . '/../../src/app/controlers/tipoControler.php';
+include_once __DIR__ . '/../../src/app/controlers/mesaControler.php';
+include_once __DIR__ . '/../../src/app/controlers/menuControler.php';
 
 return function (App $app) {
     $container = $app->getContainer();
 
+    
     // Empleado
     $app->group('/empleado-orm', function () { 
       $this->get('/', empleadoControler::class . ':TraerTodos');

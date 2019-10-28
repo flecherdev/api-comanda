@@ -8,8 +8,9 @@ class AutentificadorJWT
     private static $tipoEncriptacion = ['HS256'];
     private static $aud = null;
     
-    public static function CrearToken($datos)
-    {
+    public static function CrearToken($datos){
+        //$fecha = new Datetime(time()->getTimestamp(), new DateTimeZone('America/Argentina/Buenos_Aires'));
+        date_default_timezone_set('America/Argentina/Buenos_Aires');
         $ahora = time();
         /*
          parametros del payload
@@ -21,7 +22,7 @@ class AutentificadorJWT
             'exp' => $ahora + (60),
             'aud' => self::Aud(),
             'data' => $datos,
-            'app'=> "API REST CD UTN FRA"
+            'app'=> "api rest comanda v1.0"
         );
         return JWT::encode($payload, self::$claveSecreta);
     }
@@ -34,7 +35,7 @@ class AutentificadorJWT
         } 
         // las siguientes lineas lanzan una excepcion, de no ser correcto o de haberse terminado el tiempo       
       
-      try {
+        try {
             $decodificado = JWT::decode(
             $token,
             self::$claveSecreta,
