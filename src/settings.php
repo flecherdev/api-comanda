@@ -24,19 +24,6 @@ return [
             'level' => \Monolog\Logger::DEBUG,
         ],
 
-        // eloquent settings test
-        // 'db' => [
-        //    'driver' => 'mysql',
-        //     'host' => 'localhost',
-        //     'database' => 'cdcol',
-        //     'username' => 'root',
-        //     'password' => '12345678',
-        //     'charset'   => 'utf8',
-        //     'collation' => 'utf8_unicode_ci',
-        //     'prefix'    => '',
-        //     // 'unix_socket' => '/opt/lampp/var/mysql/mysql.sock',
-        // ],
-
         'db' => [
             'driver' => 'mysql',
              'host' => 'localhost',

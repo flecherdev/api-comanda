@@ -25,7 +25,7 @@ class empleadoControler implements IApiControler {
     
     $miEmpleado = new empleado;
     $miEmpleado->nombre_empleado = $dato->nombre_empleado;
-    $miEmpleado->id_tipo = $dato->id_tipo ;
+    $miEmpleado->id_tipo = $dato->id_tipo;
     $miEmpleado->clave_empleado = $dato->clave_empleado;
     $miEmpleado->estado_empleado = $dato->estado_empleado;
     $miEmpleado->created_at = $dato->created_at;
@@ -33,7 +33,7 @@ class empleadoControler implements IApiControler {
 
     $miEmpleado->save();
 
-    $newResponse = $response->withJson($miEmpleado , 200);  
+    $newResponse = $response->withJson($miEmpleado , 200);
     return $newResponse;
   }
 

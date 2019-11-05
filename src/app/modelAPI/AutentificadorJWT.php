@@ -9,14 +9,9 @@ class AutentificadorJWT
     private static $aud = null;
     
     public static function CrearToken($datos){
-        //$fecha = new Datetime(time()->getTimestamp(), new DateTimeZone('America/Argentina/Buenos_Aires'));
         date_default_timezone_set('America/Argentina/Buenos_Aires');
         $ahora = time();
-        /*
-         parametros del payload
-         https://tools.ietf.org/html/rfc7519#section-4.1
-         + los que quieras ej="'app'=> "API REST CD 2019" 
-        */
+
         $payload = array(
         	'iat'=>$ahora,
             'exp' => $ahora + (60),
@@ -27,8 +22,7 @@ class AutentificadorJWT
         return JWT::encode($payload, self::$claveSecreta);
     }
     
-    public static function VerificarToken($token)
-    {
+    public static function VerificarToken($token) {
         if(empty($token))
         {
             throw new Exception("El token esta vacio.");
@@ -51,26 +45,24 @@ class AutentificadorJWT
             throw new Exception("No es el usuario valido");
         }
     }
-    
    
-     public static function ObtenerPayLoad($token)
-    {
+    public static function ObtenerPayLoad($token) {
         return JWT::decode(
             $token,
             self::$claveSecreta,
             self::$tipoEncriptacion
         );
     }
-     public static function ObtenerData($token)
-    {
+    
+    public static function ObtenerData($token) {
         return JWT::decode(
             $token,
             self::$claveSecreta,
             self::$tipoEncriptacion
         )->data;
     }
-    private static function Aud()
-    {
+
+    private static function Aud() {
         $aud = '';
         
         if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
@@ -86,4 +78,5 @@ class AutentificadorJWT
         
         return sha1($aud);
     }
+
 }
