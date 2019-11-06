@@ -19,7 +19,7 @@
 -- Table structure for table `empleados`
 --
 
-DROP TABLE IF EXISTS `empleados`;
+-- DROP TABLE IF EXISTS `empleados`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `empleados` (

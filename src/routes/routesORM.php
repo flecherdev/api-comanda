@@ -7,17 +7,18 @@ use App\Models\ORM\EstadoControler;
 use App\Models\ORM\TipoControler;
 use App\Models\ORM\MesaControler;
 use App\Models\ORM\MenuControler;
+use App\Models\ORM\EstadoMesaControler;
 
 include_once __DIR__ . '/../../src/app/controlers/empleadoControler.php';
 include_once __DIR__ . '/../../src/app/controlers/estadoControler.php';
 include_once __DIR__ . '/../../src/app/controlers/tipoControler.php';
 include_once __DIR__ . '/../../src/app/controlers/mesaControler.php';
 include_once __DIR__ . '/../../src/app/controlers/menuControler.php';
+include_once __DIR__ . '/../../src/app/controlers/estadoMesaControler.php';
 
 return function (App $app) {
     $container = $app->getContainer();
 
-    
     // Empleado
     $app->group('/empleado-orm', function () { 
       $this->get('/', empleadoControler::class . ':TraerTodos');
@@ -61,5 +62,14 @@ return function (App $app) {
       $this->post('/menu/add', MenuControler::class . ':CargarUno'); 
       $this->delete('/menu/delete/[{id}]', MenuControler::class . ':BorrarUno');  
       $this->put('/menu/[{id}]', MenuControler::class . ':ModificarUno');   
+    });
+
+    // EstadoMesa
+    $app->group('/estado-mesa-orm', function () { 
+      $this->get('/', estadoMesaControler::class . ':TraerTodos');
+      $this->get('/estado-mesa/[{id}]', estadoMesaControler::class . ':TraerUno'); 
+      $this->post('/estado-mesa/add', estadoMesaControler::class . ':CargarUno'); 
+      $this->delete('/estado-mesa/delete/[{id}]', estadoMesaControler::class . ':BorrarUno');  
+      $this->put('/estado-mesa/[{id}]', estadoMesaControler::class . ':ModificarUno');   
     });
 };
