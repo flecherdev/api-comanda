@@ -8,6 +8,7 @@ use App\Models\ORM\TipoControler;
 use App\Models\ORM\MesaControler;
 use App\Models\ORM\MenuControler;
 use App\Models\ORM\EstadoMesaControler;
+use App\Models\ORM\FichadaControler;
 
 include_once __DIR__ . '/../../src/app/controlers/empleadoControler.php';
 include_once __DIR__ . '/../../src/app/controlers/estadoControler.php';
@@ -15,6 +16,7 @@ include_once __DIR__ . '/../../src/app/controlers/tipoControler.php';
 include_once __DIR__ . '/../../src/app/controlers/mesaControler.php';
 include_once __DIR__ . '/../../src/app/controlers/menuControler.php';
 include_once __DIR__ . '/../../src/app/controlers/estadoMesaControler.php';
+include_once __DIR__ . '/../../src/app/controlers/fichadaControler.php';
 
 return function (App $app) {
     $container = $app->getContainer();
@@ -66,10 +68,19 @@ return function (App $app) {
 
     // EstadoMesa
     $app->group('/estado-mesa-orm', function () { 
-      $this->get('/', estadoMesaControler::class . ':TraerTodos');
-      $this->get('/estado-mesa/[{id}]', estadoMesaControler::class . ':TraerUno'); 
-      $this->post('/estado-mesa/add', estadoMesaControler::class . ':CargarUno'); 
-      $this->delete('/estado-mesa/delete/[{id}]', estadoMesaControler::class . ':BorrarUno');  
-      $this->put('/estado-mesa/[{id}]', estadoMesaControler::class . ':ModificarUno');   
+      $this->get('/', EstadoMesaControler::class . ':TraerTodos');
+      $this->get('/estado-mesa/[{id}]', EstadoMesaControler::class . ':TraerUno'); 
+      $this->post('/estado-mesa/add', EstadoMesaControler::class . ':CargarUno'); 
+      $this->delete('/estado-mesa/delete/[{id}]', EstadoMesaControler::class . ':BorrarUno');  
+      $this->put('/estado-mesa/[{id}]', EstadoMesaControler::class . ':ModificarUno');   
+    });
+
+    // Fichada
+    $app->group('/fichada-orm', function () { 
+      $this->get('/', FichadaControler::class . ':TraerTodos');
+      $this->get('/fichada/[{id}]', FichadaControler::class . ':TraerUno'); 
+      $this->post('/fichada/add', FichadaControler::class . ':CargarUno'); 
+      $this->delete('/fichada/delete/[{id}]', FichadaControler::class . ':BorrarUno');  
+      $this->put('/fichada/[{id}]', FichadaControler::class . ':ModificarUno');   
     });
 };
