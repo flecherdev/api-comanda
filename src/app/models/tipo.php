@@ -2,7 +2,7 @@
 namespace App\Models\ORM;
 
 class Tipo extends \Illuminate\Database\Eloquent\Model {
-    public$timestamps = false;
+    public $timestamps = false;
     // NOmbre de la tabla
     protected $table = 'tipos';
     // Primary Key
