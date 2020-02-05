@@ -18,6 +18,8 @@ Empleados:
 ## :green_book: Lista de Tareas 
 
  - Creacion del proyecto :white_check_mark:
- - Configuracion de elocuent :white_check_mark:
- - Persistir empleados :ballot_box_with_check:
+ - Configuracion de eloquent :white_check_mark:
+ - Persistir datos :white_check_mark:
+ - Router ORM :white_check_mark:
+ - Controllers para el modelo de datos :white_check_mark:
  - JWT para rutas y login :ballot_box_with_check:
