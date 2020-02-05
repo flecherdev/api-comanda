@@ -10,7 +10,18 @@ class empleadoControler implements IApiControler {
     
   public function TraerTodos($request, $response, $args) { 
     $todosLosEmpleados=empleado::all();
-    $newResponse = $response->withJson($todosLosEmpleados, 200);  
+
+    // uso de select con eloquent
+    $data = empleado::select(
+      'empleados.id_empleado',
+      'empleados.nombre_empleado',
+      'empleados.id_tipo',
+      'empleados.estado_empleado',
+      'empleados.created_at',
+      'empleados.updated_at') 
+    ->get();
+
+    $newResponse = $response->withJson($data, 200);  
     return $newResponse;
   }
 
@@ -59,6 +70,29 @@ class empleadoControler implements IApiControler {
     
     $newResponse = $response->withJson($miEmpleado, 200);  
     return 	$newResponse;
+  }
+
+  // post login usuario y contraseña
+  public function LoginNombrePass($request, $response, $args) {  
+    $dato = json_decode(json_encode($request->getParsedBody()));
+
+    $nombre = $dato->nombre_empleado;
+    $password = $dato->clave_empleado;
+
+    // me trae la data si nombre y pass coiciden en eloquent el where anidado se toma como AND
+    $miEmpleado = empleado::where('nombre_empleado', $nombre)
+                            ->where('clave_empleado', $password)
+                            ->get()->first();
+
+    //var_dump($miEmpleado);
+    if(!isset($miEmpleado)){
+      $respuesta = array("Estado" => "ERROR", "Mensaje" => "Usuario invalido.");
+      $newResponse = $response->withJson($respuesta,200);
+      return $newResponse;
+    }
+    
+    return $response->withJson($miEmpleado , 200);
+    
   }
 
 }
