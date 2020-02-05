@@ -10,7 +10,13 @@ class MesaControler implements IApiControler {
 
     public function TraerTodos($request, $response, $args) {
         $todosLosTipos = Mesa::all();
-        $newResponse = $response->withJson($todosLosTipos, 200);
+
+        // inner join entre mesa y estado_mesa
+        $data = Mesa::select('mesas.id_mesa','mesas.codigo_mesa','estado_mesa.descripcion_estado_mesa','mesas.foto_mesa')
+                            ->join('estado_mesa','mesas.id_estado_mesa', '=', 'estado_mesa.id_estado_mesa')
+                            ->get();
+
+        $newResponse = $response->withJson($data, 200);
         return $newResponse;
     }
 

@@ -23,6 +23,9 @@ include_once __DIR__ . '/../../src/app/controlers/pedidoControler.php';
 return function (App $app) {
     $container = $app->getContainer();
 
+    // Login
+    $app->post('/empleados/login', empleadoControler::class . ':LoginNombrePass');  
+
     // Empleado
     $app->group('/empleado-orm', function () { 
       $this->get('/', empleadoControler::class . ':TraerTodos');
