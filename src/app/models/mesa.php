@@ -6,5 +6,5 @@ class Mesa extends \Illuminate\Database\Eloquent\Model {
     // Nombre de la tabla
     protected $table = 'mesas';
     // Primary Key
-    protected $primaryKey = 'id_mesas';
+    protected $primaryKey = 'id_mesa';
 }
