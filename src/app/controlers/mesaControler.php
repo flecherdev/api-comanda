@@ -9,10 +9,8 @@ include_once __DIR__ . '../../modelAPI/IApiControler.php';
 class MesaControler implements IApiControler {
 
     public function TraerTodos($request, $response, $args) {
-        $todosLosTipos = Mesa::all();
-
         // inner join entre mesa y estado_mesa
-        $data = Mesa::select('mesas.id_mesa','mesas.codigo_mesa','estado_mesa.descripcion_estado_mesa','mesas.foto_mesa')
+        $data = Mesa::select('mesas.id_mesa','mesas.codigo_mesa','mesas.id_estado_mesa','estado_mesa.descripcion_estado_mesa','mesas.foto_mesa')
                             ->join('estado_mesa','mesas.id_estado_mesa', '=', 'estado_mesa.id_estado_mesa')
                             ->get();
 
@@ -49,8 +47,9 @@ class MesaControler implements IApiControler {
         $dato = json_decode(json_encode($request->getParsedBody()));
 
         $miMesa = Mesa::find($args['id']);
-        $miMesa->descripcion_mesa= $dato->descripcion_mesa;
-        $miMesa->foto = $dato->foto;
+        // $miMesa->codigo_mesa= $dato->codigo_mesa;
+        $miMesa->id_estado_mesa= $dato->id_estado_mesa;
+        // $miMesa->foto_mesa= $dato->foto_mesa;
 
         $miMesa->save();
 
