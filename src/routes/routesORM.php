@@ -10,6 +10,7 @@ use App\Models\ORM\MenuControler;
 use App\Models\ORM\EstadoMesaControler;
 use App\Models\ORM\FichadaControler;
 use App\Models\ORM\PedidoControler;
+use App\Models\ORM\EmpleadoMiddleware;
 
 include_once __DIR__ . '/../../src/app/controlers/empleadoControler.php';
 include_once __DIR__ . '/../../src/app/controlers/estadoControler.php';
@@ -19,6 +20,7 @@ include_once __DIR__ . '/../../src/app/controlers/menuControler.php';
 include_once __DIR__ . '/../../src/app/controlers/estadoMesaControler.php';
 include_once __DIR__ . '/../../src/app/controlers/fichadaControler.php';
 include_once __DIR__ . '/../../src/app/controlers/pedidoControler.php';
+include_once __DIR__ . '/../../src/app/middlewares/empleadoMiddleware.php';
 
 return function (App $app) {
     $container = $app->getContainer();
@@ -33,7 +35,7 @@ return function (App $app) {
       $this->post('/empleado/add', empleadoControler::class . ':CargarUno'); 
       $this->delete('/empleado/delete/[{id}]', empleadoControler::class . ':BorrarUno');  
       $this->put('/empleado/[{id}]', empleadoControler::class . ':ModificarUno');   
-    });
+    })->add(EmpleadoMiddleware::class . ':ValidarSocio')->add(EmpleadoMiddleware::class . ':ValidarToken');
 
     // Estado
     $app->group('/estado-orm', function () { 
@@ -42,7 +44,8 @@ return function (App $app) {
       $this->post('/estado/add', EstadoControler::class . ':CargarUno'); 
       $this->delete('/estado/delete/[{id}]', EstadoControler::class . ':BorrarUno');  
       $this->put('/estado/[{id}]', EstadoControler::class . ':ModificarUno');   
-    });
+    })
+    ->add(EmpleadoMiddleware::class . ':ValidarToken');;
 
     // Tipo
     $app->group('/tipo-orm', function () { 
@@ -51,7 +54,8 @@ return function (App $app) {
       $this->post('/tipo/add', TipoControler::class . ':CargarUno'); 
       $this->delete('/tipo/delete/[{id}]', TipoControler::class . ':BorrarUno');  
       $this->put('/tipo/[{id}]', TipoControler::class . ':ModificarUno');   
-    });
+    })
+    ->add(EmpleadoMiddleware::class . ':ValidarToken');;
 
     // Mesa
     $app->group('/mesa-orm', function () { 
@@ -60,7 +64,9 @@ return function (App $app) {
       $this->post('/mesa/add', MesaControler::class . ':CargarUno'); 
       $this->delete('/mesa/delete/[{id}]', MesaControler::class . ':BorrarUno');  
       $this->put('/mesa/[{id}]', MesaControler::class . ':ModificarUno');   
-    });
+    })
+    ->add(EmpleadoMiddleware::class . ':ValidarMozo')
+    ->add(EmpleadoMiddleware::class . ':ValidarToken');;
 
     // Menu
     $app->group('/menu-orm', function () { 
@@ -69,7 +75,9 @@ return function (App $app) {
       $this->post('/menu/add', MenuControler::class . ':CargarUno'); 
       $this->delete('/menu/delete/[{id}]', MenuControler::class . ':BorrarUno');  
       $this->put('/menu/[{id}]', MenuControler::class . ':ModificarUno');   
-    });
+    })
+    ->add(EmpleadoMiddleware::class . ':ValidarMozo')
+    ->add(EmpleadoMiddleware::class . ':ValidarToken');;
 
     // EstadoMesa
     $app->group('/estado-mesa-orm', function () { 
@@ -78,23 +86,27 @@ return function (App $app) {
       $this->post('/estado-mesa/add', EstadoMesaControler::class . ':CargarUno'); 
       $this->delete('/estado-mesa/delete/[{id}]', EstadoMesaControler::class . ':BorrarUno');  
       $this->put('/estado-mesa/[{id}]', EstadoMesaControler::class . ':ModificarUno');   
-    });
+    })->add(EmpleadoMiddleware::class . ':ValidarMozo')->add(EmpleadoMiddleware::class . ':ValidarToken');
 
     // Fichada
     $app->group('/fichada-orm', function () { 
       $this->get('/', FichadaControler::class . ':TraerTodos');
-      $this->get('/fichada/[{id}]', FichadaControler::class . ':TraerUno'); 
+      $this->get('/fichada/[{id}]', FichadaControler::class . ':TraerUno');
       $this->post('/fichada/add', FichadaControler::class . ':CargarUno'); 
-      $this->delete('/fichada/delete/[{id}]', FichadaControler::class . ':BorrarUno');  
-      $this->put('/fichada/[{id}]', FichadaControler::class . ':ModificarUno');   
-    });
+      $this->delete('/fichada/delete/[{id}]', FichadaControler::class . ':BorrarUno');
+      $this->put('/fichada/[{id}]', FichadaControler::class . ':ModificarUno'); 
+    })
+    ->add(EmpleadoMiddleware::class . ':ValidarSocio')
+    ->add(EmpleadoMiddleware::class . ':ValidarToken');
 
     // Pedido
     $app->group('/pedido-orm', function () { 
       $this->get('/', PedidoControler::class . ':TraerTodos');
+      $this->post('/pedido/fecha', PedidoControler::class . ':TraerFecha');
       $this->get('/pedido/[{id}]', PedidoControler::class . ':TraerUno'); 
       $this->post('/pedido/add', PedidoControler::class . ':CargarUno'); 
       $this->delete('/pedido/delete/[{id}]', PedidoControler::class . ':BorrarUno');  
       $this->put('/pedido/[{id}]', PedidoControler::class . ':ModificarUno');   
-    });
+    })
+    ->add(EmpleadoMiddleware::class . ':ValidarToken');
 };

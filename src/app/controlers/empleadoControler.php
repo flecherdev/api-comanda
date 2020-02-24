@@ -2,9 +2,11 @@
 namespace App\Models\ORM;
 use App\Models\ORM\empleado;
 use App\Models\IApiControler;
+use App\Models\Token;
 
 include_once __DIR__ . '../../models/empleado.php';
 include_once __DIR__ . '../../modelAPI/IApiControler.php';
+include_once __DIR__ . '../../modelAPI/Token.php';
 
 class empleadoControler implements IApiControler {
     
@@ -86,13 +88,43 @@ class empleadoControler implements IApiControler {
 
     //var_dump($miEmpleado);
     if(!isset($miEmpleado)){
-      $respuesta = array("Estado" => "ERROR", "Mensaje" => "Usuario invalido.");
+      $respuesta = array("estado" => "error", "mensaje" => "usuario invalido.");
       $newResponse = $response->withJson($respuesta,200);
       return $newResponse;
     }
+
+    // creo una instancia de un empleado y saco la clave para enviarla con el token
+    $empleado = new empleado;
+    $empleado->id_empleado = $miEmpleado->id_empleado;
+    $empleado->nombre_empleado = $miEmpleado->nombre_empleado;
+    $empleado->id_tipo = $miEmpleado->id_tipo;
+    $empleado->estado_empleado = $miEmpleado->estado_empleado;
+    $empleado->created_at = $miEmpleado->created_at;
+    $empleado->updated_at = $miEmpleado->updated_at;
+
+    // TODO
+
+    // GENERAR TOKEN CON empleado
+
+    if ($empleado) {
+      $token = Token::CodificarToken($empleado);
+      // ACTUALIZAR FECHA DE LOGIN
+      //Empleado::ActualizarFechaLogin($retorno["ID_Empleado"]);
+      $respuesta = array("estado" => "ok", "mensaje" => "logueado exitosamente.", "token" => $token);
+    } else {
+        $respuesta = array("estado" => "error", "mensaje" => "u suario o clave invalidos.");
+    }
     
-    return $response->withJson($miEmpleado , 200);
+    $newResponse = $response->withJson($respuesta, 200);
+    return $newResponse;
+
+    
+    
+   // return $response->withJson($miEmpleado , 200);
     
   }
+
+
+  // GENERAR METODO ESTATICO PARA ACTUALIZAR FECHA DE LOGIN 
 
 }
