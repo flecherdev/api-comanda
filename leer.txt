@@ -5,3 +5,6 @@ composer require phpoffice/phpspreadsheet
 
 // Para reportes en pdf
 composer require dompdf/dompdfß
+
+// Para leer archivo env
+composer require vlucas/phpdotenv
