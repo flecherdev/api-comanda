@@ -30,8 +30,7 @@ class MesaControler implements IApiControler {
         $miMesa = new Mesa;
         $miMesa->codigo_mesa= $dato->codigo_mesa;
         $miMesa->id_estado_mesa= $dato->id_estado_mesa;
-        $miMesa->descripcion_estado_mesa= $dato->descripcion_estado_mesa;
-        $miMesa->foto_mesa = $dato->foto_mesa;
+        $miMesa->foto_mesa= $dato->foto_mesa;
 
         $miMesa->save();
 
