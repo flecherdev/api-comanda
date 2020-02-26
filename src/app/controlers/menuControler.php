@@ -25,8 +25,8 @@ class MenuControler implements IApiControler {
 
         $miMenu = new Menu;
         $miMenu->nombre_menu = $dato->nombre_menu;
-        $miMenu->precio = $dato->precio;
-        $miMenu->id_tipos_sector = $dato->id_tipos_sector ;
+        $miMenu->precio_menu = $dato->precio_menu;
+        $miMenu->id_tipo = $dato->id_tipo ;
         $miMenu->descripcion_menu = $dato->descripcion_menu;
         $miMenu->foto_menu = $dato->foto_menu;
 
@@ -47,8 +47,8 @@ class MenuControler implements IApiControler {
 
         $miMenu = Menu::find($args['id']);
         $miMenu->nombre_menu = $dato->nombre_menu;
-        $miMenu->precio = $dato->precio;
-        $miMenu->id_tipos_sector = $dato->id_tipos_sector ;
+        $miMenu->precio = $dato->precio_menu;
+        $miMenu->id_tipo = $dato->id_tipo ;
         $miMenu->descripcion_menu = $dato->descripcion_menu;
         $miMenu->foto_menu = $dato->foto_menu;
 
