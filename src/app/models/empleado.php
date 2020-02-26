@@ -6,7 +6,7 @@ class empleado extends \Illuminate\Database\Eloquent\Model {
     // Nombre de la tabla
     protected $table = 'empleados';
     // Primary Key
-    //protected $primaryKey = 'id_empleado';
+    protected $primaryKey = 'id_empleado';
     // Filas de la tabla
     protected $fillable = [
         'nombre_empleado',
