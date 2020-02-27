@@ -22,11 +22,14 @@ class FichadaControler implements IApiControler {
    
   public function CargarUno($request, $response, $args) {  
     $dato = json_decode(json_encode($request->getParsedBody()));
+
+    $ingreso = new \DateTime($dato->ingreso_fichada);
+    $salida = new \DateTime($dato->salida_fichada);
     
     $miFichada = new Fichada;
     $miFichada->id_empleado = $dato->id_empleado;
-    $miFichada->ingreso_fichada = $dato->ingreso_fichada;
-    $miFichada->salida_fichada = $dato->salida_fichada;
+    $miFichada->ingreso_fichada = $ingreso->format('Y-m-d H:i:s');
+    $miFichada->salida_fichada = $salida->format('Y-m-d H:i:s');
 
     $miFichada->save();
 
@@ -44,9 +47,10 @@ class FichadaControler implements IApiControler {
     $dato = json_decode(json_encode($request->getParsedBody()));
 
     $miFichada = Fichada::find($args['id']);
-    $miFichada->id_empleado = $dato->id_empleado;
-    $miFichada->ingreso_fichada = $dato->ingreso_fichada;
-    $miFichada->salida_fichada = $dato->salida_fichada;
+    $salida = new \DateTime($dato->salida_fichada);
+    // $miFichada->id_empleado = $dato->id_empleado;
+    // $miFichada->ingreso_fichada = $dato->ingreso_fichada;
+    $miFichada->salida_fichada = $salida->format('Y-m-d H:i:s');
 
     $miFichada->save();
     
