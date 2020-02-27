@@ -90,13 +90,12 @@ return function (App $app) {
 
     // Fichada
     $app->group('/fichada-orm', function () { 
-      $this->get('/', FichadaControler::class . ':TraerTodos');
-      $this->get('/fichada/[{id}]', FichadaControler::class . ':TraerUno');
+      $this->get('/', FichadaControler::class . ':TraerTodos')->add(EmpleadoMiddleware::class . ':ValidarSocio');
+      $this->get('/fichada/[{id}]', FichadaControler::class . ':TraerUno')->add(EmpleadoMiddleware::class . ':ValidarSocio');
       $this->post('/fichada/add', FichadaControler::class . ':CargarUno'); 
-      $this->delete('/fichada/delete/[{id}]', FichadaControler::class . ':BorrarUno');
+      $this->delete('/fichada/delete/[{id}]', FichadaControler::class . ':BorrarUno')->add(EmpleadoMiddleware::class . ':ValidarSocio');
       $this->put('/fichada/[{id}]', FichadaControler::class . ':ModificarUno'); 
     })
-    ->add(EmpleadoMiddleware::class . ':ValidarSocio')
     ->add(EmpleadoMiddleware::class . ':ValidarToken');
 
     // Pedido
