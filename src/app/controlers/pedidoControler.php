@@ -61,6 +61,7 @@ class PedidoControler implements IApiControler {
                 'pedidos.id_mesa',
                 'pedidos.id_menu',
                 'menus.nombre_menu',
+                'menus.precio',
                 'pedidos.id_mozo',
                 'pedidos.id_empleado',
                 'pedidos.nombre_cliente',
