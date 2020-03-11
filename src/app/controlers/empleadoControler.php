@@ -19,11 +19,32 @@ class empleadoControler implements IApiControler {
       'empleados.nombre_empleado',
       'empleados.id_tipo',
       'empleados.estado_empleado',
+      'empleados.foto_empleado',
       'empleados.created_at',
       'empleados.updated_at') 
     ->get();
 
     $newResponse = $response->withJson($data, 200);  
+    return $newResponse;
+  }
+
+  public function TraerEmpleadosAdmin($request, $response, $args) {
+
+    // uso de select con eloquent
+    $data = empleado::select(
+      'empleados.id_empleado',
+      'empleados.nombre_empleado',
+      'empleados.id_tipo',
+      'tipos.descripcion_tipo',
+      'empleados.estado_empleado',
+      'empleados.foto_empleado',
+      'empleados.created_at',
+      'empleados.updated_at') 
+    ->join(
+      'tipos', 'tipos.id_tipo', '=', 'empleados.id_tipo'
+    )->get();
+
+    $newResponse = $response->withJson($data, 200);
     return $newResponse;
   }
 
@@ -89,6 +110,13 @@ class empleadoControler implements IApiControler {
     //var_dump($miEmpleado);
     if(!isset($miEmpleado)){
       $respuesta = array("estado" => "error", "mensaje" => "usuario invalido.");
+      $newResponse = $response->withJson($respuesta,200);
+      return $newResponse;
+    }
+
+    // Empleado inactivo no puede loguearse
+    if($miEmpleado->estado_empleado === 0){
+      $respuesta = array("estado" => "error", "mensaje" => "usuario inactivo.");
       $newResponse = $response->withJson($respuesta,200);
       return $newResponse;
     }

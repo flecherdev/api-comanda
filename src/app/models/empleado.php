@@ -13,6 +13,7 @@ class empleado extends \Illuminate\Database\Eloquent\Model {
         'id_tipo',
         'clave_empleado',
         'estado_empleado',
+        'foto_empleado',
         'created_at',
         'updated_at'
     ]; 
