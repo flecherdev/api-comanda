@@ -56,13 +56,16 @@ class empleadoControler implements IApiControler {
    
   public function CargarUno($request, $response, $args) {  
     $dato = json_decode(json_encode($request->getParsedBody()));
+
+    $fechaCreate = new \DateTime();
     
     $miEmpleado = new empleado;
     $miEmpleado->nombre_empleado = $dato->nombre_empleado;
     $miEmpleado->id_tipo = $dato->id_tipo;
     $miEmpleado->clave_empleado = $dato->clave_empleado;
     $miEmpleado->estado_empleado = $dato->estado_empleado;
-    $miEmpleado->created_at = $dato->created_at;
+    $miEmpleado->foto_empleado = $dato->foto_empleado;
+    $miEmpleado->updated_at = $fechaCreate->format('Y-m-d H:i:s');
     $miEmpleado->updated_at = $dato->updated_at;
 
     $miEmpleado->save();
@@ -84,10 +87,10 @@ class empleadoControler implements IApiControler {
 
     $miEmpleado->nombre_empleado = $dato->nombre_empleado;
     $miEmpleado->id_tipo = $dato->id_tipo ;
-    $miEmpleado->clave_empleado = $dato->clave_empleado;
+    // $miEmpleado->clave_empleado = $dato->clave_empleado;
     $miEmpleado->estado_empleado = $dato->estado_empleado;
-    $miEmpleado->created_at = $dato->created_at;
-    $miEmpleado->updated_at = $dato->updated_at;
+    // $miEmpleado->created_at = $dato->created_at;
+    // $miEmpleado->updated_at = $dato->updated_at;
 
     $miEmpleado->save();
     
@@ -127,17 +130,19 @@ class empleadoControler implements IApiControler {
     $empleado->nombre_empleado = $miEmpleado->nombre_empleado;
     $empleado->id_tipo = $miEmpleado->id_tipo;
     $empleado->estado_empleado = $miEmpleado->estado_empleado;
-    $empleado->created_at = $miEmpleado->created_at;
-    $empleado->updated_at = $miEmpleado->updated_at;
+    // $empleado->created_at = $miEmpleado->created_at;
+    // $empleado->updated_at = $miEmpleado->updated_at;
 
-    // TODO
 
     // GENERAR TOKEN CON empleado
-
     if ($empleado) {
       $token = Token::CodificarToken($empleado);
+      
       // ACTUALIZAR FECHA DE LOGIN
-      //Empleado::ActualizarFechaLogin($retorno["ID_Empleado"]);
+      $fechaLogin = new \DateTime();
+      $miEmpleado->updated_at = $fechaLogin->format('Y-m-d H:i:s');
+      $miEmpleado->save();
+
       $respuesta = array("estado" => "ok", "mensaje" => "logueado exitosamente.", "token" => $token);
     } else {
         $respuesta = array("estado" => "error", "mensaje" => "u suario o clave invalidos.");
@@ -145,14 +150,6 @@ class empleadoControler implements IApiControler {
     
     $newResponse = $response->withJson($respuesta, 200);
     return $newResponse;
-
-    
-    
-   // return $response->withJson($miEmpleado , 200);
-    
   }
-
-
-  // GENERAR METODO ESTATICO PARA ACTUALIZAR FECHA DE LOGIN 
 
 }
