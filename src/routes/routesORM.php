@@ -60,14 +60,28 @@ return function (App $app) {
 
     // Mesa
     $app->group('/mesa-orm', function () { 
-      $this->get('/', MesaControler::class . ':TraerTodos');
-      $this->get('/mesa/[{id}]', MesaControler::class . ':TraerUno'); 
-      $this->post('/mesa/add', MesaControler::class . ':CargarUno'); 
-      $this->delete('/mesa/delete/[{id}]', MesaControler::class . ':BorrarUno');  
-      $this->put('/mesa/[{id}]', MesaControler::class . ':ModificarUno');   
-    })
-    ->add(EmpleadoMiddleware::class . ':ValidarMozo')
-    ->add(EmpleadoMiddleware::class . ':ValidarToken');;
+      $this->get('/', MesaControler::class . ':TraerTodos')
+      ->add(EmpleadoMiddleware::class . ':ValidarMozo')
+      ->add(EmpleadoMiddleware::class . ':ValidarToken');
+      $this->get('/mesa/[{id}]', MesaControler::class . ':TraerUno')
+      ->add(EmpleadoMiddleware::class . ':ValidarMozo')
+      ->add(EmpleadoMiddleware::class . ':ValidarToken'); 
+      $this->post('/mesa/add', MesaControler::class . ':CargarUno')
+      ->add(EmpleadoMiddleware::class . ':ValidarMozo')
+      ->add(EmpleadoMiddleware::class . ':ValidarToken');
+      // no se valida por tocken porque el cliente se loguea por red social
+      $this->post('/mesa/mesas-abiertas', MesaControler::class . ':TraerTodosAbiertas'); 
+      $this->delete('/mesa/delete/[{id}]', MesaControler::class . ':BorrarUno')
+      ->add(EmpleadoMiddleware::class . ':ValidarMozo')
+      ->add(EmpleadoMiddleware::class . ':ValidarToken');  
+      $this->put('/mesa/[{id}]', MesaControler::class . ':ModificarUno')
+      ->add(EmpleadoMiddleware::class . ':ValidarMozo')
+      ->add(EmpleadoMiddleware::class . ':ValidarToken'); 
+      // Modifica el estado de la mesa de cliente
+      $this->put('/mesa/cliente/[{id}]', MesaControler::class . ':ModificarEstadoMesa'); 
+      // modifica el codigo de la mesa
+      $this->put('/mesa/cliente/codigo/[{id}]', MesaControler::class . ':ModificarCodigo'); 
+    });
 
     // Menu
     $app->group('/menu-orm', function () { 
@@ -101,12 +115,18 @@ return function (App $app) {
 
     // Pedido
     $app->group('/pedido-orm', function () { 
-      $this->get('/', PedidoControler::class . ':TraerTodos');
-      $this->post('/pedido/fecha', PedidoControler::class . ':TraerFecha');
-      $this->get('/pedido/[{id}]', PedidoControler::class . ':TraerUno'); 
-      $this->post('/pedido/add', PedidoControler::class . ':CargarUno'); 
-      $this->delete('/pedido/delete/[{id}]', PedidoControler::class . ':BorrarUno');  
-      $this->put('/pedido/[{id}]', PedidoControler::class . ':ModificarUno');   
-    })
-    ->add(EmpleadoMiddleware::class . ':ValidarToken');
+      $this->get('/', PedidoControler::class . ':TraerTodos')
+      ->add(EmpleadoMiddleware::class . ':ValidarToken');
+      $this->post('/pedido/fecha', PedidoControler::class . ':TraerFecha')
+      ->add(EmpleadoMiddleware::class . ':ValidarToken');
+      $this->get('/pedido/[{id}]', PedidoControler::class . ':TraerUno')
+      ->add(EmpleadoMiddleware::class . ':ValidarToken'); 
+      $this->post('/pedido/add', PedidoControler::class . ':CargarUno')
+      ->add(EmpleadoMiddleware::class . ':ValidarToken'); 
+      $this->delete('/pedido/delete/[{id}]', PedidoControler::class . ':BorrarUno')
+      ->add(EmpleadoMiddleware::class . ':ValidarToken');  
+      $this->put('/pedido/[{id}]', PedidoControler::class . ':ModificarUno')
+      ->add(EmpleadoMiddleware::class . ':ValidarToken');
+      $this->post('/pedido/fecha-mesa', PedidoControler::class . ':TraerFechaMesa');  
+    });
 };
