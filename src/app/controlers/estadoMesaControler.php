@@ -6,8 +6,8 @@ use App\Models\IApiControler;
 include_once __DIR__ . '../../models/estadoMesa.php';
 include_once __DIR__ . '../../modelAPI/IApiControler.php';
 
-class EstadoMesaControler implements IApiControler {
-    
+class EstadoMesaControler implements IApiControler { 
+
   public function TraerTodos($request, $response, $args) { 
     $todosLosEstadosMesa = EstadoMesa::all();
     $newResponse = $response->withJson($todosLosEstadosMesa, 200);  

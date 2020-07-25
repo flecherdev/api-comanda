@@ -18,6 +18,28 @@ class MesaControler implements IApiControler {
         return $newResponse;
     }
 
+    // servicio para cliente
+    public function TraerTodosAbiertas($request, $response, $args) { 
+        $dato = json_decode(json_encode($request->getParsedBody()));
+
+        $id_estado_mesa = $dato->id_estado_mesa;
+
+        $todosLosEstadosMesa = Mesa::select(
+            'mesas.id_mesa',
+            'mesas.codigo_mesa',
+            'mesas.id_estado_mesa',
+            'mesas.foto_mesa',
+            'estado_mesa.descripcion_estado_mesa'
+        )->where(
+            'mesas.id_estado_mesa', $id_estado_mesa
+        )->join(
+            'estado_mesa', 'estado_mesa.id_estado_mesa', '=', 'mesas.id_estado_mesa'
+        )->get();
+
+        $newResponse = $response->withJson($todosLosEstadosMesa, 200);  
+        return $newResponse;
+    }
+
     public function TraerUno($request, $response, $args) {
         $traerUno = Mesa::find($args['id']);
         $newResponse = $response->withJson($traerUno, 200);
@@ -52,6 +74,28 @@ class MesaControler implements IApiControler {
         $miMesa->id_estado_mesa= $dato->id_estado_mesa;
         // $miMesa->foto_mesa= $dato->foto_mesa;
 
+        $miMesa->save();
+
+        $newResponse = $response->withJson($miMesa, 200);
+        return $newResponse;
+    }
+
+    public function ModificarEstadoMesa($request, $response, $args) {
+        $dato = json_decode(json_encode($request->getParsedBody()));
+
+        $miMesa = Mesa::find($args['id']);
+        $miMesa->id_estado_mesa= $dato->id_estado_mesa;
+        $miMesa->save();
+
+        $newResponse = $response->withJson($miMesa, 200);
+        return $newResponse;
+    }
+
+    public function ModificarCodigo($request, $response, $args) {
+        $dato = json_decode(json_encode($request->getParsedBody()));
+
+        $miMesa = Mesa::find($args['id']);
+        $miMesa->codigo_mesa= $dato->codigo_mesa;
         $miMesa->save();
 
         $newResponse = $response->withJson($miMesa, 200);
