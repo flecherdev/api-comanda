@@ -63,9 +63,7 @@ return function (App $app) {
       $this->get('/', MesaControler::class . ':TraerTodos')
       ->add(EmpleadoMiddleware::class . ':ValidarMozo')
       ->add(EmpleadoMiddleware::class . ':ValidarToken');
-      $this->get('/mesa/[{id}]', MesaControler::class . ':TraerUno')
-      ->add(EmpleadoMiddleware::class . ':ValidarMozo')
-      ->add(EmpleadoMiddleware::class . ':ValidarToken'); 
+      $this->get('/mesa/[{id}]', MesaControler::class . ':TraerUno');
       $this->post('/mesa/add', MesaControler::class . ':CargarUno')
       ->add(EmpleadoMiddleware::class . ':ValidarMozo')
       ->add(EmpleadoMiddleware::class . ':ValidarToken');
